@@ -1,20 +1,28 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <nav-bar/>
+    <poster-com>
+      <router-view/>
+    </poster-com>
   </div>
 </template>
+<script>
+import navBar from "@/components/common/nav-bar.vue";
+import posterCom from "@/components/common/poster.vue";
+export default {
+  components: { navBar, posterCom }
+};
+</script>
 
 <style>
+@import "~@/assets/css/reset.css";
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  width: 100%;
+  height: 100%;
+  padding-left: 170px;
 }
 </style>

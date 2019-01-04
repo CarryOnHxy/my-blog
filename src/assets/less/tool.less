@@ -1,0 +1,183 @@
+//out:false
+//弹性布局 
+.fl(@dir:row){
+    display: flex;
+    flex-direction: @dir;
+}
+//居中的几种方式 
+//全局居中
+.fl_cet(@dir:row){
+    display: flex;
+    flex-direction: @dir;
+    justify-content: center;
+    align-items: center;
+}
+.fl_cet(j,@dir:row){
+    display: flex;
+    flex-direction: @dir;
+    justify-content: center;
+}
+.fl_cet(al,@dir:row){
+    display: flex;
+    flex-direction: @dir;
+    align-items: center;
+}
+.po_cet(@top:0;@right:0;@bottom:0;@left:0){
+    position: absolute;
+    top: @top;
+    right: @right;
+    bottom: @bottom;
+    left:@left;
+    margin:auto;
+}
+.tf_cet(){
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%)
+}
+.po_cet2(@width;@height){
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left:-(@width/2);
+    margin-top:-(@height/2)
+}
+//单方向居中
+.tr_cet(x){
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%)
+}
+.tr_cet(y){
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%)
+}
+.po_cet_h(h,@width){
+    position: absolute;
+    left: 50%;
+    margin-left:-(@width/2);
+}
+.po_cet_v(v,@height){
+    position: absolute;
+    top: 50%;
+    margin-left:-(@height/2);
+}
+.po_cet(x,@top:auto,@bottom:auto){
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: @top;
+    bottom: @bottom;
+    margin: auto;
+}
+.po_cet(y){
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+//文本居中
+.txt_cet(@height){
+    text-align: center;
+    line-height: @height;
+    height: @height;
+}
+//绝对定位的几种方式
+.ab(t;@top){
+    position: absolute;
+    top: @top
+}
+.ab(l;@left){
+    position: absolute;
+    left: @left;
+}
+.ab(r;@right){
+    position: absolute;
+    right: @right
+}
+.ab(b;@bottom){
+    position: absolute;
+    bottom: @bottom
+}
+.ab_a(@top:auto;@left:auto;@bottom:auto;@right:auto){
+    position: absolute;
+    top: @top;
+    right: @right;
+    bottom: @bottom;
+    left: @left
+}
+//固定定位
+.fix_a(@top;@right;@bottom;@left){
+    position: fixed;
+    top: @top;
+    right: @right;
+    bottom: @bottom;
+    left: @left
+}
+.fix(t;@top){
+    position: fixed;
+    top: @top
+}
+.fix(l;@left){
+    position: fixed;
+    left: @left;
+}
+.fix(r;@right){
+    position: fixed;
+    right: @right
+}
+.fix(b;@bottom){
+    position: fixed;
+    bottom: @bottom;
+}
+.fix_cet(@top:0;@right:0;@bottom:0;@left:0){
+    position: fixed;
+    top: @top;
+    right: @right;
+    bottom: @bottom;
+    left:@left;
+    margin:auto;
+}
+//定义宽高
+.wh(@width;@height){
+    width:@width;
+    height: @height
+}
+.miwh(@width;@height){
+    min-width:@width;
+    min-height: @height
+}
+.mawh(@width;@height){
+    max-width: @width;
+    max-height: @height
+}
+.border(@style:solid;@width:1px;@color:#ccc;){
+    border:arguments
+}
+//去除小程序默认button的border与背景颜色
+.btn_def(){
+    &::after{
+        border:none;
+    }
+    background-color:transparent;
+    padding: 0;
+}
+//去除小程序默认input样式 
+.ipt_def(){
+    outline:none;
+    border:none;
+    list-style: none;
+}
+//清除浮动，伪类方式
+.clearfix(){
+    zoom: 1;
+    &::after{
+        content:"";
+        display: block;
+        clear: both;
+        overflow: hidden;
+        visibility: hidden;
+    }    
+}
