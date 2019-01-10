@@ -21,6 +21,9 @@ a{
 	outline:none;/*去掉描边*/
 	text-decoration:none;/*去掉自带下划线*/
 }
+a:visited{
+    color: inherit
+}
 img{
 	border:none;/*去掉ie浏览器图片外面的边框*/
 	vertical-align:top;/*图片对齐方式*/

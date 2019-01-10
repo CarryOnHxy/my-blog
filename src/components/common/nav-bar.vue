@@ -23,7 +23,7 @@ export default {
     }
   },
   computed:{
-
+    
   },
   methods:{
     chooseNavItem(index){
@@ -63,6 +63,14 @@ export default {
 }
 .nav_item_current {
   background: #16a085;
+}
+@media screen and (max-width: 1280px){
+  .nav_item_text{
+    display: none
+  }
+  .nav_con{
+    .wh(45px,100%)
+  }
 }
 </style>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="poster_con">
-    <div class="poster"></div>
-    <slot class="main"></slot>
+    <div class="poster"></div><!--
+      --><slot></slot>
   </div>
 </template>
 <script>
@@ -11,9 +11,13 @@ export default {};
 @import "~@/assets/less/tool.less";
 .poster_con {
   .wh(100%, 100%);
+  overflow-y: hidden;
 }
 .poster {
   .wh(25%, 100%);
-  border: 1px solid aquamarine;
+  background:url('~@/assets/images/bg1.jpg') ;
+  background-size: cover;
+  background-position: center 0;
+  display: inline-block;
 }
 </style>
