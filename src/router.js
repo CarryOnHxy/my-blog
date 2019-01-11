@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import article from './views/article.vue'
 import video from './views/video.vue'
+import quillEditor from './views/quill-editor.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -21,6 +22,11 @@ export default new Router({
       path: '/video',
       name: 'video',
       component: video
-    }
+    },
+    {
+      path: '/quill',
+      name: 'quill',
+      component: quillEditor
+    },
   ]
 })
