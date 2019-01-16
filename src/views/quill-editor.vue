@@ -1,5 +1,6 @@
 <template>
-  <div>
+<!-- qd=quill-editor -->
+  <div class="quill_editor_con">
     <quill-editor
       v-model="content"
       ref="myQuillEditor"
@@ -11,17 +12,14 @@
   </div>
 </template>
 <script>
+/* eslint-disable */ 
 import quillEditor from "vue-quill-editor";
 export default {
   data() {
     return {
       content: null,
       editorOption: {
-        modules: {
-          toolbar: [
-            ["bold", "italic", "underline", "strike"] // toggled buttons
-          ]
-        }
+      
       }
     };
   },
@@ -40,5 +38,10 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.quill_editor_con{
+  width: 100%;
+  height: 100%;
+  overflow: auto
+}
 </style>
 

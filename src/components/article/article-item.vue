@@ -1,5 +1,5 @@
 <template>
-  <div class="ar_item_con">
+  <router-link to="/article-detail" class="ar_item_con" @click="toArticleItem">
     <article class="ar_item_wrapper" v-for="(item,index) of articles" :key="index">
       <!-- <div class="ar_item_cover"> -->
       <img class="ar_item_cover" :src="item.coverUrl">
@@ -19,11 +19,16 @@
       </div>
       <div class="ar_item_desc">{{item.description}}</div>
     </article>
-  </div>
+  </router-link>
 </template>
 <script>
 export default {
-  props: ["articles"]
+  props: ["articles"],
+  methods:{
+    toArticleItem(){
+
+    }
+  }
 };
 </script>
 <style lang="less">

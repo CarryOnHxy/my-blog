@@ -40,6 +40,22 @@ const mockData = [{
 
     }
 ]
+const cateList =[
+    {name:"React"},
+    {name:"微信小程序"},
+    {name:"Taro"},
+    {name:"React"},
+    {name:"微信小程序"},
+    {name:"Taro"},
+    {name:"React"},
+    {name:"微信小程序"},
+    {name:"Taro"},
+    {name:"React"},
+    {name:"微信小程序"},
+    {name:"Taro"}
+    
+]
 module.exports = {
-    mockData
+    mockData,
+    cateList
 }

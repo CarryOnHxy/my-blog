@@ -17,7 +17,7 @@ export default {
     return{
       navItem:[
        {text:'博客首页',iconUrl:require('@/assets/images/icon/home.png'),refUrl:"/",isClicked:true},
-       {text:'我的文章',iconUrl:require('@/assets/images/icon/article.png'),refUrl:"/article",isClicked:false},
+       {text:'我的文章',iconUrl:require('@/assets/images/icon/article.png'),refUrl:"/article-cate",isClicked:false},
        {text:'我的视频',iconUrl:require('@/assets/images/icon/video.png'),refUrl:"/video",isClicked:false}
       ]
     }
