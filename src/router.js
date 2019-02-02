@@ -10,39 +10,39 @@ import login from './views/login.vue'
 Vue.use(Router)
 export default new Router({
   routes: [{
-      path: '/',
-      name: 'home',
-      component: Home
-    },
-    {
-      path: '/article',
-      name: 'article',
-      component: article
-    },
-    {
-      path: '/video',
-      name: 'video',
-      component: video
-    },
-    {
-      path: '/quill',
-      name: 'quill',
-      component: quillEditor
-    },
-    {
-      path: '/article-detail',
-      name: 'article-detail',
-      component: articleDetail
-    },
-    {
-      path: '/article-cate',
-      name: 'article-cate',
-      component: articleCate
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: login
-    }
-  ]
+    path: '/',
+    name: 'home',
+    component: Home,
+    children: [{
+        path: '/article',
+        alias:"/",
+        name: 'article',
+        component: article
+      },
+      {
+        path: '/video',
+        name: 'video',
+        component: video
+      },
+      {
+        path: '/quill',
+        name: 'quill',
+        component: quillEditor
+      },
+      {
+        path: '/article-detail',
+        name: 'article-detail',
+        component: articleDetail
+      },
+      {
+        path: '/article-cate',
+        name: 'article-cate',
+        component: articleCate
+      }
+    ]
+  }, {
+    path: '/login',
+    name: 'login',
+    component: login,
+  }]
 })

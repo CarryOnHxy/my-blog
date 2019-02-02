@@ -3,7 +3,7 @@
   <div class="ac_con">
     <div class="ac_title">分类目录</div>
     <div class="ac_list">
-      <router-link to="/article" class="ac_item" v-for="(item,index) of cateList" :key="index">{{item.name}}</router-link>
+      <router-link to="/article-detail" class="ac_item" v-for="(item,index) of cateList" :key="index">{{item.name}}</router-link>
     </div>
   </div>
 </template>
