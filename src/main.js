@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
+import router from './router/index'
 import store from './store'
 import  VueQuillEditor from 'vue-quill-editor'
 // require styles 引入样式

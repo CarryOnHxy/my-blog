@@ -45,35 +45,7 @@ export default {
 .no_padding{
   padding: 0 !important;
 }
-// #main {
-//   width: 55%;
-//   height: 100%;
-//   float: right;
-//   overflow: auto;
-// }
-// #main::-webkit-scrollbar {
-//   background: #ccc;
-//   width: 10px;
-// }
-// #main::-webkit-scrollbar-thumb {
-//   background: rgba(22, 160, 132, 0.651);
-// }
-// .home_aside {
-//   .wh(20%, 100%);
-//   .miwh(20%, 100%);
-//   float: right;
-//   background: #ededed;
-// }
-// .login_con {
-//   .ab(t, 20px);
-//   right: 20px;
-//   font-size: 16px;
-//   color: #bdbdbd;
-// }
-// .login_con > img {
-//   .wh(20px, 20px);
-//   margin-right: 5px;
-// }
+
 @media screen and (max-width: 1280px) {
   #app {
     padding-left: 45px;

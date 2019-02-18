@@ -11,18 +11,27 @@
         <div class="ad_header_moto">掌控了自己就掌控了世界</div>
       </div>
     </div> -->
-    <article class="ad_text" v-html="html"></article>
+    <article class="ad_text" v-html="article&&article.detail"></article>
   </div>
 </template>
 <script>
-import authorInfo from "@/components/common/author-info.vue"
+import authorInfo from "@/components/common/author-info.vue";
+import { getArticleList } from "@/api/article";
+
 export default {
+  props:['articleId'],
   data() {
     return {
-      html: `<p><br></p><h2>二、目录结构</h2><p>基本的目录结构如下所示：</p><p><img src="http://static.ptbird.cn/usr/uploads/2019/01/823019488.jpg" alt="1.jpg">asdasddadd</p><p>sssssss</p>`
+     article:null
     };
   },
-  components:{authorInfo}
+  components:{authorInfo},
+  mounted(){
+    getArticleList({id:this.articleId}).then(res=>{
+      // console.log(res)
+      this.article = res.data.article;
+    })
+  }
 };
 </script>
 <style lang="less" scoped>
@@ -30,12 +39,8 @@ export default {
 .ad_con {
     .wh(100%,100%);
     .miwh(100%,100%);
-    // background: antiquewhite;
-    // overflow: scroll;
     padding: 0px 50px;
     box-sizing: border-box;
     padding-bottom: 50px;
 }
-
-
 </style>

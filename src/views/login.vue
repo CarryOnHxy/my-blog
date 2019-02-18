@@ -14,8 +14,7 @@
 <script>
 export default {
     methods:{
-        toLogin(e){
-            console.log('toLogin',e);
+        toLogin(){
             
         }
     }

@@ -1,6 +1,8 @@
 <template>
-  <router-link to="/article-detail" class="ar_item_con" @click="toArticleItem">
-    <article class="ar_item_wrapper" v-for="(item,index) of articles" :key="index">
+  <div class="ar_item_con" >
+    <article class="ar_item_wrapper" v-for="(item,index) of articles"
+     :key="index"
+     @click="toArticleItem(item.id)">
       <!-- <div class="ar_item_cover"> -->
       <img class="ar_item_cover" :src="item.coverUrl">
       <!-- </div> -->
@@ -8,25 +10,25 @@
         <div class="ai_header_userinfo">
           <span class="ui_nickname">
             <a href="#">
-              <strong>{{item.nickName}}</strong>
+              <strong>{{item.author}}</strong>
             </a>
             .
           </span>
-          <span class="ui_posttime">{{item.postTime}}</span>
+          <span class="ui_posttime">{{item.date}}</span>
         </div>
         <div class="ai_header_title">{{item.title}}</div>
-        <div class="ai_header_state">评论: {{item.commentNum}} . 喜欢: {{item.likeNum}}</div>
+        <div class="ai_header_state">评论: {{item.comment_num}} . 喜欢: {{item.like_num}}</div>
       </div>
-      <div class="ar_item_desc">{{item.description}}</div>
+      <div class="ar_item_desc" Zv-html="item.detail">&nbsp;&nbsp;{{item.desc}}</div>
     </article>
-  </router-link>
+  </div>
 </template>
 <script>
 export default {
   props: ["articles"],
   methods:{
-    toArticleItem(){
-
+    toArticleItem(articleId){
+      this.$router.push({path:'/article-detail',query:{article_id:articleId}})
     }
   }
 };
@@ -37,6 +39,7 @@ export default {
   overflow: auto;
   .wh(100%, auto);
   padding-bottom: 80px;
+  cursor: pointer;
   // margin: 0 auto;
 }
 .ar_item_wrapper {
@@ -44,6 +47,7 @@ export default {
   //   .clearfix();
   padding-top: 10px;
   padding-bottom: 10px;
+  min-height: 96px;
 }
 .ar_item_cover {
   .wh(100px, 100px);
@@ -58,7 +62,7 @@ export default {
 }
 .ui_nickname strong {
   font-weight: 700;
-  //   color: currentColor
+    color: #999
 }
 .ai_header_title {
   color: #16a085;
