@@ -2,8 +2,8 @@
   <div class="video_list_con">
     <div class="video_item" v-for="(item,index) of videoList" :key="index">
       <div class="video_time">{{item.date}}</div>
-      <div class="video_author_text">{{item.desc}}</div>
-      <video class="video_detail" :src="item.src" controls></video>
+      <div class="video_author_text">{{item.title}}</div>
+      <video class="video_detail" :src="item.src" controls ></video>
     </div>
   </div>
 </template>
@@ -42,7 +42,7 @@ export default {
 .video_time {
   .wh(100%, 50px);
   font-size: 30px;
-  color: #16a085;
+  color: rgb(0, 122, 204);
   line-height: 50px;
   text-indent: 10px;
 }
@@ -52,7 +52,8 @@ export default {
 .video_detail {
   display: block;
   margin: 20px auto;
-  .wh(100%, 300px);
+  .wh(100%, 350px);
   background: #fff;
+  object-fit: fill;
 }
 </style>

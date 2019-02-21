@@ -2,9 +2,17 @@
   <div class="login_con">
     <div class="login_wrapper">
       <div class="login_title">Welcome</div>
-      <form action method="post" class="login_form" @submit.prevent="toLogin">
-        <input type="text" class="login_username" name="username" placeholder="用户名">
-        <input type="password" class="login_password" name="password" placeholder="密码">
+      <form action method="post" class="login_form" @submit.prevent="login">
+        <input type="text" 
+        class="login_username" 
+        name="username" 
+        placeholder="用户名" 
+        v-model="userName">
+        <input type="password" 
+        class="login_password" 
+        name="password" 
+        v-model="password"
+        placeholder="密码">
         <button class="login_submit">登录</button>
       </form>
       <p class="login_index"><router-link to="/">返回首页</router-link></p>
@@ -12,10 +20,25 @@
   </div>
 </template>
 <script>
+import {toLogin} from "@/api/login";
+
 export default {
+  data(){
+    return{
+      userName:'',
+      password:''
+    }
+  },
     methods:{
-        toLogin(){
-            
+        login(){
+            toLogin({username:this.userName,password:this.password}).then(res=>{
+              if(res.data.loginState === true){
+                document.cookie = `loginState=${res.data.loginState}`;
+                this.$router.push({path:'/quill'});
+              }else{
+                alert('用户名或者密码输入错误')
+              }
+            })
         }
     }
 };

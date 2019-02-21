@@ -5,3 +5,10 @@ export const getVideoList = () => {
         method: 'get'
     })
 }
+export const setVideo = (data={}) =>{
+    return axios.request({
+        url: '/video/setVideo',
+        method: 'post',
+        data
+    })
+}

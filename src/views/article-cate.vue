@@ -8,7 +8,10 @@
         v-for="(item,index) of cateList"
         :key="index"
       >
-        <router-link to="/article-detail" :class="{ac_item:true,ac_item_last:index===cateList.length-1&&cateList.length%2!=0}">{{item.name}}</router-link>
+        <div
+          :class="{ac_item:true,ac_item_last:index===cateList.length-1&&cateList.length%2!=0}"
+          @click="toCategroryDetail(item.id)"
+        >{{item.name}}</div>
       </div>
       <!-- <router-link to="/article-detail" class="ac_item"  v-for="(item,index) of cateList" :key="index">{{item.name}}</router-link> -->
     </div>
@@ -17,6 +20,8 @@
 <script>
 // import { cateList } from "../../public/js/mock-data.js";
 import { getCategroryList } from "@/api/categrory";
+import { setNavBarState } from "@/lib/util";
+const NAV_BAR_INDEX = 1;
 export default {
   data() {
     return {
@@ -24,9 +29,17 @@ export default {
     };
   },
   mounted() {
+    /* 更新navbar状态 */
+    setNavBarState(this, NAV_BAR_INDEX);
+
     getCategroryList().then(res => {
       this.cateList = res.data.rows;
     });
+  },
+  methods: {
+    toCategroryDetail(categroryId) {
+      this.$router.push({ path: "/article", query: { categroryId } });
+    }
   }
 };
 </script>
@@ -51,12 +64,13 @@ export default {
   margin: 0 auto;
   line-height: 80px;
   font-size: 30px;
-  color: #16a085;
+  color: rgb(0, 122, 204);
   font-weight: bold;
 }
 .ac_item_wrapper {
   .wh(40%, 150px);
   margin-bottom: 30px;
+  cursor: pointer;
 }
 .ac_item_wrapper_last {
   .wh(100%, 100%);
@@ -65,7 +79,7 @@ export default {
   .wh(100%, 100%);
   display: block;
   .txt_cet(150px);
-  border: 1px solid #16a085;
+  border: 1px solid rgb(0, 122, 204);
   font-size: 15px;
   transition: background-color 1s, font-size 0.5s, color 0.5s;
 }
@@ -73,7 +87,7 @@ export default {
   .wh(40%, 150px);
 }
 .ac_item:hover {
-  background: #16a085;
+  background: rgb(0, 122, 204);
   font-size: 20px;
   color: #fff;
 }

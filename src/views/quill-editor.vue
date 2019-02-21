@@ -60,7 +60,7 @@ export default {
       inputHtml = e.html;
     },
     chooseCategrory(e) {
-      console.log(e.target.value);
+      categroryId = e.target.value;
     },
     submit() {
       if (inputHtml === "") alert(alertInfo["noInputArticle"]);
@@ -74,6 +74,8 @@ export default {
             detail: newHtml,
             timestamp: Date.now(),
             categrory_id: categroryId
+          }).then(()=>{
+            this.$router.push({path:'/'})
           });
         }
       }

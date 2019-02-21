@@ -2,13 +2,35 @@
   <div class="search_bar_con">
     <router-link class="search_bar_tag" to="/">最新动态</router-link>
     <div class="search_bar_detaill">
-      <input type="text" class="search_bar_input" placeholder="请输入关键字搜索"/>
+      <input 
+      type="text" 
+      class="search_bar_input" 
+      placeholder="请输入关键字搜索" 
+      @keyup.enter="toSearch"
+      v-model="queryKey"
+      />
     </div>
   </div>
 </template>
 <script>
+import { searchArticle } from "@/api/article";
 export default {
-    
+  data(){
+    return {
+      queryKey:''
+    }
+  },
+    methods:{
+      toSearch(e){
+        // if(e.key ==='Enter'){
+          // searchArticle({queryKey:this.queryKey}).then(res=>{
+            this.$router.replace({path:'/article',query:{isSearched:true,queryKey:this.queryKey}})
+            // this.$bus.$emit('emitSearchResult',res.data);
+            console.log('from toSearch')
+          // })
+        // }
+      }
+    }
 }
 </script>
 <style lang="less">

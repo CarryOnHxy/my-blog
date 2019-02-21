@@ -22,3 +22,10 @@ export const getArticleInCate = (params = {})=>{
         params
     })
 }
+export const searchArticle = (params = {})=>{
+    return axios.request({
+        url:'/article/selectArticleByKey',
+        method:'get',
+        params
+    })
+}

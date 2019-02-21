@@ -4,26 +4,42 @@
       <router-link :to="item.refUrl" :class="{nav_item:true,nav_item_current:item.isClicked} "
        v-for="(item,index) of navItem" 
       :key="index"
-      @click.native="chooseNavItem(index)">
-        <img :src="item.iconUrl" :alt="item.text">
-        <span class="nav_item_text">{{item.text}}</span>
+      @click.native="chooseNavItem(index)"
+      :title="item.text">
+        <img :src="item.iconUrl" >
+        <!-- <span class="nav_item_text">{{item.text}}</span> -->
       </router-link>
     </nav>
   </div>
 </template>
 <script>
+import {judgeLoginState} from '@/lib/util';
+const VISTOR_NAV_INDEX = 0;
+const BLOGGER_NAV_INDEX = 1;
 export default {
+  props:['loginState'],
   data(){
     return{
-      navItem:[
+      navItemList:[[
        {text:'博客首页',iconUrl:require('@/assets/images/icon/home.png'),refUrl:"/",isClicked:true},
        {text:'我的文章',iconUrl:require('@/assets/images/icon/article.png'),refUrl:"/article-cate",isClicked:false},
        {text:'我的视频',iconUrl:require('@/assets/images/icon/video.png'),refUrl:"/video",isClicked:false}
-      ]
+      ],
+      [
+        {text:'编写文章',iconUrl:require('@/assets/images/icon/edit-article.png'),refUrl:"/quill",isClicked:true},
+        {text:'插入视频',iconUrl:require('@/assets/images/icon/edit-video.png'),refUrl:"/video-editor",isClicked:false},
+
+    ]],
+    currentNavIndex:0
     }
   },
   computed:{
-    
+    currentItem(){
+      return this.loginState?BLOGGER_NAV_INDEX:VISTOR_NAV_INDEX
+    },
+    navItem(){
+      return this.navItemList[this.currentItem]
+    }
   },
   methods:{
     chooseNavItem(index){
@@ -32,15 +48,27 @@ export default {
         arr[idx].isClicked = false;
         arr[index].isClicked = true;
       })
-      this.navItem = navItem;
+      this.navItemList[this.currentItem] = navItem;
+      this.currentNavIndex = index;
     }
+  },
+  mounted(){
+    /* 更新navBar状态 */
+    if(judgeLoginState()){
+
+    }
+    this.$bus.$on('updateNavState',({currentNavIndex}) =>{
+      console.log('currentNavIndex',currentNavIndex);
+      this.currentNavIndex = currentNavIndex;
+      this.chooseNavItem(currentNavIndex);
+    })
   }
 };
 </script>
 <style lang="less" scoped>
 @import "~@/assets/less/tool.less";
 .nav_con {
-  .wh(170px, 100%);
+  .wh(50px, 100%);
   background: #2a2a2a;
   z-index: 2048;
   .fix_a(0,auto,auto,0)
@@ -54,7 +82,7 @@ export default {
   color: #fff;
 }
 .nav_item img {
-  .wh(14px, 14px);
+  .wh(16px, 16px);
   margin-left: 14px;
 }
 .nav_item_text {
@@ -62,7 +90,9 @@ export default {
   margin-left: 14px;
 }
 .nav_item_current {
-  background: #16a085;
+  // background: #16a085;
+    background: rgb(0, 122, 204);
+
 }
 @media screen and (max-width: 1280px){
   .nav_item_text{

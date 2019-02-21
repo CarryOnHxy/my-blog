@@ -11,18 +11,18 @@
           登录
         </router-link>
       </main>
-    </poster-com> -->
-    <router-view />
+    </poster-com>-->
+    <transition name="router-view">
+      <router-view/>
+    </transition>
   </div>
 </template>
 <script>
-
 export default {
-  created(){
-  },
-  computed:{
-    isLogin(){
-      return this.$route.fullPath==="/login"
+  created() {},
+  computed: {
+    isLogin() {
+      return this.$route.fullPath === "/login";
     }
   }
 };
@@ -40,9 +40,9 @@ export default {
   color: #2c3e50;
   /* width: 87%; */
   height: 100%;
-  padding-left: 170px;
+  padding-left: 50px;
 }
-.no_padding{
+.no_padding {
   padding: 0 !important;
 }
 
@@ -50,5 +50,14 @@ export default {
   #app {
     padding-left: 45px;
   }
+}
+.router-view-enter-active {
+  transition: all 0.5s ease;
+}
+.router-view-enter {
+  transform: translateX(500px);
+}
+.router-view-enter-to {
+  transform: translateX(0px);
 }
 </style>

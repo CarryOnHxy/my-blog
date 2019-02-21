@@ -1,6 +1,6 @@
 <template>
   <div class="home_con">
-    <nav-bar/>
+    <nav-bar :loginState = "loginState"/>
     <poster-com>
       <aside class="home_aside"></aside>
       <main id="main">
@@ -8,10 +8,10 @@
         <transition name="router-view">
           <router-view/>
         </transition>
-        <router-link to="/login" class="login_con">
-          <img src="@/assets/images/icon/login.png" alt="登录">
-          登录
-        </router-link>
+        <div class="login_con" @click="toLogin">
+          <img :src="loginImgUrl">
+          {{loginText}}
+        </div>
       </main>
     </poster-com>
   </div>
@@ -27,10 +27,31 @@ import posterCom from "@/components/common/poster.vue";
 import searchBar from "@/components/common/search-bar.vue";
 export default {
   name: "home",
+  props: ["loginState"],
   data() {
     return {
-      mockData
+      mockData,
+      loginStateBackup:this.loginState
     };
+  },
+  computed: {
+    loginImgUrl() {
+      return this.loginStateBackup
+        ? require("@/assets/images/icon/logout.png")
+        : require("@/assets/images/icon/login.png");
+    },
+    loginText(){return this.loginStateBackup ? "退出" : "登陆"}
+  },
+  methods: {
+    toLogin() {
+      if (this.loginStateBackup) {
+        document.cookie = `loginState =${false}`;
+        this.loginStateBackup = false;
+           this.$router.push({ path: "/" });
+      } else {
+        this.$router.push({ path: "/login" });
+      }
+    }
   },
   components: { navBar, posterCom, searchBar }
 };
@@ -64,7 +85,8 @@ export default {
   width: 10px;
 }
 #main::-webkit-scrollbar-thumb {
-  background: rgba(22, 160, 132, 0.651);
+  // background: rgba(22, 160, 132, 0.651);
+  background: rgb(0, 122, 204);
 }
 .home_aside {
   .wh(20%, 100%);
@@ -76,20 +98,21 @@ export default {
   .ab(t, 20px);
   right: 20px;
   font-size: 16px;
-  color: #bdbdbd;
+  color: #333;
+  cursor: pointer;
 }
 .login_con > img {
   .wh(20px, 20px);
   margin-right: 5px;
 }
-.router-view-enter-active{
-  transition: all .5s ease
+.router-view-enter-active {
+  transition: all 0.5s ease;
 }
-.router-view-enter{
-  transform: translateX(500px)
+.router-view-enter {
+  transform: translateX(500px);
 }
-.router-view-enter-to{
-transform: translateX(0px)
+.router-view-enter-to {
+  transform: translateX(0px);
 }
 </style>
 
