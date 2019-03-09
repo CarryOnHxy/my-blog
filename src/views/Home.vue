@@ -1,12 +1,15 @@
 <template>
   <div class="home_con">
     <nav-bar :loginState = "loginState"/>
-    <poster-com>
-      <aside class="home_aside"></aside>
+    <poster-com><!-- A块 -->
+      <aside class="home_aside" ref="aside" id="aside">
+          <canvas id="canvas" ref="canvas"></canvas>
+          <music-player />
+        </aside><!-- C块 -->
       <main id="main">
         <search-bar></search-bar>
         <transition name="router-view">
-          <router-view/>
+          <router-view/><!-- B块路由视图 -->
         </transition>
         <div class="login_con" @click="toLogin">
           <img :src="loginImgUrl">
@@ -19,12 +22,12 @@
 
 <script>
 // @ is an alias to /src
-// import searchBar from "@/components/common/search-bar.vue"
 import { mockData } from "../../public/js/mock-data.js";
-// import articleItem from "@/components/article/article-item.vue";
 import navBar from "@/components/common/nav-bar.vue";
 import posterCom from "@/components/common/poster.vue";
 import searchBar from "@/components/common/search-bar.vue";
+import musicPlayer from "@/components/home/music-player.vue";
+import {createCrossLine} from "@/lib/cross-line";
 export default {
   name: "home",
   props: ["loginState"],
@@ -53,7 +56,14 @@ export default {
       }
     }
   },
-  components: { navBar, posterCom, searchBar }
+  mounted(){
+    this.$nextTick(()=>{
+      let canvas = document.querySelector('#canvas'),
+          aside = document.querySelector('#aside');
+      createCrossLine(canvas,aside.clientWidth,aside.clientHeight);
+    })
+  },
+  components: { navBar, posterCom, searchBar,musicPlayer }
 };
 </script>
 <style lang="less" scoped>
@@ -81,7 +91,7 @@ export default {
   overflow: auto;
 }
 #main::-webkit-scrollbar {
-  background: #ccc;
+  background: rgb(237, 237, 237);
   width: 10px;
 }
 #main::-webkit-scrollbar-thumb {
@@ -93,6 +103,12 @@ export default {
   .miwh(20%, 100%);
   float: right;
   background: #ededed;
+  position: relative;
+}
+#canvas{
+  .wh(100%,100%);
+  .ab(t,0px);
+  // z-index: -1;
 }
 .login_con {
   .ab(t, 20px);

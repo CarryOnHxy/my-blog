@@ -4,6 +4,8 @@ import router from './router/index'
 import store from './store'
 import {bus} from './lib/bus';
 import  VueQuillEditor from 'vue-quill-editor'
+//eslint-disable-next-line
+import Mock from './mock'
 // require styles 引入样式
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'

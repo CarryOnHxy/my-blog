@@ -9,6 +9,7 @@ import articleItem from "./article-item.vue";
 import { formatTime } from "@/lib/tool";
 import { getArticleList, getArticleInCate, searchArticle } from "@/api/article";
 import { setNavBarState, cancelOnSearchRes } from "@/lib/util";
+import { getCommentList} from "@/api/comment";
 import { mockData } from "../../../public/js/mock-data.js";
 const NAV_BAR_INDEX = 0;
 export default {
@@ -25,6 +26,7 @@ export default {
     }
   },
   mounted() {
+
     /* 更新navbar状态 */
     setNavBarState(this, NAV_BAR_INDEX);
     /* 更新搜索结果  

@@ -43,7 +43,7 @@ export const routes = [{
             name: 'article-detail',
             component: articleDetail,
             props: route => ({
-                articleId: route.query['article_id']
+                articleId: Number(route.query['article_id'])
             })
         },
         {

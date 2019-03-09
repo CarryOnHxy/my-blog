@@ -31,7 +31,6 @@ export default {
   mounted() {
     /* 更新navbar状态 */
     setNavBarState(this, NAV_BAR_INDEX);
-
     getCategroryList().then(res => {
       this.cateList = res.data.rows;
     });
