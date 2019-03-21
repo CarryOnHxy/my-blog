@@ -47,17 +47,18 @@ export default {
           article_id: this.articleId
         };
         addComment(commentData).then(res => {
-          if (res.data.commentState) {
-            alert("评论成功");
-            if(this.replyId){
-              this.$emit('close-comment');
-              }else{
-              this.comment = this.email = this.nickName = "";
-            }
-          }
+          // if (res.data.commentState) {
+            this.$emit('add-comment',commentData)
+            this.$message({message:'评论成功'});
+            // if(this.replyId){
+            //   this.$emit('close-comment');
+            //   }else{
+            //   this.comment = this.email = this.nickName = "";
+            // }
+          // }
         });
       } else {
-        alert("请填写完整的信息");
+        this.$message({message:"请填写完整的信息",type:'error'});
       }
     }
   }

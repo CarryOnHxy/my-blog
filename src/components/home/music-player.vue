@@ -57,16 +57,16 @@ export default {
     /* 播放音乐 */
     handleMusicState() {
       if (this.currentMusicState["isPlaying"]) {
-        this.playSong();
-      } else {
         this.pauseSong();
+      } else {
+        this.playSong();
       }
     },
-    playSong() {
+    pauseSong() {
       this.$refs["audio"].pause();
       this.currentMusicState["isPlaying"] = false;
     },
-    pauseSong() {
+    playSong() {
       this.$refs["audio"].play();
       this.currentMusicState["isPlaying"] = true;
     },
@@ -95,6 +95,10 @@ export default {
       audio.onended = () => {
         this.currentMusicState["isPlaying"] = false;
       };
+      /* 当视频播放的时候音乐需要暂停 */
+      this.$bus.$on('pauseMusicPlayer',()=>{
+        this.pauseSong();
+      })
     }
   },
   mounted() {

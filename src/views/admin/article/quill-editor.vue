@@ -26,16 +26,18 @@
 import { quillEditor } from "vue-quill-editor";
 import "quill/dist/quill.snow.css";
 import { getCategroryList } from "@/api/categrory";
-import { setArticle } from "@/api/article";
+import { insertArticle, getArticleList, setArticle } from "@/api/article";
 
 let inputHtml = "",
   categroryId = 1, //默认为分类ID为1
   alertInfo = {
     noInputArticle: "没有编写文章！！",
     checkCategrory: "是否有选择正确分类",
-    noTitle: "没有填写文章标题"
+    noTitle: "没有填写文章标题",
+    editSuccess: "文章修改成功！！"
   };
 export default {
+  props: ["articleId", "isEdit"],
   data() {
     return {
       content: null,
@@ -50,6 +52,12 @@ export default {
     getCategroryList().then(res => {
       this.cateList = res.data.rows;
     });
+    if (this.isEdit) {
+      getArticleList({ id: this.articleId }).then(({ data }) => {
+        this.content = data.article.detail;
+        this.title = data.article.title;
+      });
+    }
   },
   methods: {
     onEditorFocus(e) {},
@@ -63,21 +71,40 @@ export default {
       categroryId = e.target.value;
     },
     submit() {
-      if (inputHtml === "") alert(alertInfo["noInputArticle"]);
+      if (this.isEdit) {
+        setArticle({
+          id: this.articleId,
+          condition: { detail: this.content, title: this.title }
+        }).then(res => {
+          if (res.data.updateRes) {
+            this.$message({
+              message: alertInfo["editSuccess"],
+              type: "success"
+            });
+            this.$router.push({ name: "article-admin" });
+          }
+        });
+      } else {
+        this.insertNewArticle();
+      }
+    },
+    insertNewArticle() {
+      if (inputHtml === "")
+        this.$message({ message: alertInfo["noInputArticle"], type: "error" });
       else if (this.title === "") {
-        alert(alertInfo["noTitle"]);
+         this.$message({ message: alertInfo['noTitle'], type: "error" });
       } else {
         let newHtml = `<h1><em>${this.title}</em></h1>${inputHtml}`;
-        if (confirm(alertInfo["checkCategrory"])) {
-          setArticle({
+        this.$confirm(alertInfo["checkCategrory"], "提示").then(res => {
+          insertArticle({
             title: this.title,
             detail: newHtml,
             timestamp: Date.now(),
             categrory_id: categroryId
-          }).then(()=>{
-            this.$router.push({path:'/'})
+          }).then(() => {
+            this.$router.push({ path: "/" });
           });
-        }
+        });
       }
     }
   }
@@ -88,7 +115,6 @@ export default {
 .quill_editor_con {
   width: 100%;
   height: 100%;
-  overflow: auto;
 }
 .quill_editor_title {
   .wh(100%, 40px);

@@ -27,7 +27,7 @@
   </div>
 </template>
 <script>
-import { setVideo } from "@/api/video";
+import { setVideo, getVideoList, updateVideo } from "@/api/video";
 export default {
   data() {
     return {
@@ -38,18 +38,45 @@ export default {
       title: ""
     };
   },
+  props: ["videoId", "isEdit"],
+  mounted() {
+    if (this.isEdit) {
+      getVideoList({ id: this.videoId }).then(({ data }) => {
+        this.videoUrl = data.video.src;
+        this.title = data.video.title;
+        this.showVideo();
+      });
+    }
+  },
   methods: {
     submit() {
-      setVideo({
-        src: this.videoUrl,
-        title: this.title,
-        timestamp: Date.now()
-      }).then(res => {
-          if(res.data.insertedNum>0){
-              alert('增加视频成功');
-              this.$router.replace({path:'/video'});
+      if (this.isEdit) {
+        this.$confirm("确定修改视频信息?", "提示").then(() => {
+          updateVideo({
+            id: this.videoId,
+            condition: { detail: this.content, title: this.title }
+          }).then(res => {
+            if (res.data.updateRes) {
+              this.$message({
+                message: "修改成功",
+                type: "success"
+              });
+              this.$router.push({ name: "video-admin" });
+            }
+          });
+        });
+      } else {
+        setVideo({
+          src: this.videoUrl,
+          title: this.title,
+          timestamp: Date.now()
+        }).then(res => {
+          if (res.data.insertedNum > 0) {
+            this.$message("增加视频成功");
+            this.$router.replace({ name: "video-admin" });
           }
-      });
+        });
+      }
     },
     showUrl() {
       this.isShowUrl = true;

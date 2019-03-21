@@ -34,9 +34,9 @@ export default {
             toLogin({username:this.userName,password:this.password}).then(res=>{
               if(res.data.loginState === true){
                 document.cookie = `loginState=${res.data.loginState}`;
-                this.$router.push({path:'/quill'});
+                this.$router.push({path:'/admin'});
               }else{
-                alert('用户名或者密码输入错误')
+                this.$message({message:'用户名或者密码输入错误',type:'error'})
               }
             })
         }

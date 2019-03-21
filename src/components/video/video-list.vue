@@ -1,5 +1,5 @@
 <template>
-  <div class="video_list_con">
+  <div class="video_list_con" ref="videoList">
     <div class="video_item" v-for="(item,index) of videoList" :key="index">
       <div class="video_time">{{item.date}}</div>
       <div class="video_author_text">{{item.title}}</div>
@@ -18,24 +18,32 @@ export default {
   },
   methods: {
     videoListener() {
-      console.log("videoListeners", this);
-
-      Object.keys(this.$refs).forEach(ele=>console.log(ele))
+      /* 当视频播放时候需要暂停音乐,这里之所以使用onmouseover来操作DOM，不在mount钩子操作
+      是以为在mount里面无法获取v-for渲染的DOM*/
+      this.$refs["videoList"].onmousemove = () => {
+        this.$refs["video"].forEach((ele, idx, arr) => {
+          if (!arr[idx].onplay) {
+            arr[idx].onplay = () =>{
+              this.$bus.$emit('pauseMusicPlayer');
+            };
+          }
+        });
+      };
     }
   },
   mounted() {
-    getVideoList().then(
-      res =>
-        /* 转换时间戳 */
-        (this.videoList = res.data.videoList.map(ele => {
+    getVideoList().then(res =>
+      /* 转换时间戳 */
+      {
+        this.videoList = res.data.videoList.map(ele => {
           let { year, month, day } = formatTime(ele.timestamp);
           ele.date = `${year}年${month}月${day}日`;
           return ele;
-        }))
+        });
+      }
     );
     this.$nextTick(() => {
-      // this.videoListener();
-      console.log(this)
+      this.videoListener(); 
     });
   }
 };

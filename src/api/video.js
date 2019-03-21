@@ -1,8 +1,9 @@
 import axios from './index'
-export const getVideoList = () => {
+export const getVideoList = (params={}) => {
     return axios.request({
         url: '/video/getVideo',
-        method: 'get'
+        method: 'get',
+        params
     })
 }
 export const setVideo = (data={}) =>{
@@ -10,5 +11,19 @@ export const setVideo = (data={}) =>{
         url: '/video/setVideo',
         method: 'post',
         data
+    })
+}
+export const updateVideo = (data={}) =>{
+    return axios.request({
+        url: '/video/updateVideo',
+        method: 'post',
+        data
+    })
+}
+export const deleteVideo = (params={}) =>{
+    return axios.request({
+        url: '/video/deleteVideo',
+        method: 'get',
+        params
     })
 }

@@ -13,7 +13,6 @@
   </div>
 </template>
 <script>
-import {judgeLoginState} from '@/lib/util';
 const VISTOR_NAV_INDEX = 0;
 const BLOGGER_NAV_INDEX = 1;
 export default {
@@ -21,14 +20,14 @@ export default {
   data(){
     return{
       navItemList:[[
-       {text:'博客首页',iconUrl:require('@/assets/images/icon/home.png'),refUrl:"/",isClicked:true},
-       {text:'我的文章',iconUrl:require('@/assets/images/icon/article.png'),refUrl:"/article-cate",isClicked:false},
-       {text:'我的视频',iconUrl:require('@/assets/images/icon/video.png'),refUrl:"/video",isClicked:false}
+        {text:'博客首页',iconUrl:require('@/assets/images/icon/home.png'),refUrl:"/",isClicked:true},
+        {text:'我的文章',iconUrl:require('@/assets/images/icon/article.png'),refUrl:"/article-cate",isClicked:false},
+        {text:'我的视频',iconUrl:require('@/assets/images/icon/video.png'),refUrl:"/video",isClicked:false}
       ],
       [
-        {text:'编写文章',iconUrl:require('@/assets/images/icon/edit-article.png'),refUrl:"/quill",isClicked:true},
-        {text:'插入视频',iconUrl:require('@/assets/images/icon/edit-video.png'),refUrl:"/video-editor",isClicked:false},
-
+        {text:'编写文章',iconUrl:require('@/assets/images/icon/edit-article.png'),refUrl:"/admin/article-admin",isClicked:true},
+        {text:'插入视频',iconUrl:require('@/assets/images/icon/edit-video.png'),refUrl:"/admin/video-admin",isClicked:false},
+        {text:'插入视频',iconUrl:require('@/assets/images/icon/music.png'),refUrl:"/admin/music-admin",isClicked:false}
     ]],
     currentNavIndex:0
     }
@@ -53,12 +52,8 @@ export default {
     }
   },
   mounted(){
-    /* 更新navBar状态 */
-    if(judgeLoginState()){
-
-    }
     this.$bus.$on('updateNavState',({currentNavIndex}) =>{
-      console.log('currentNavIndex',currentNavIndex);
+      // console.log('currentNavIndex',currentNavIndex);
       this.currentNavIndex = currentNavIndex;
       this.chooseNavItem(currentNavIndex);
     })

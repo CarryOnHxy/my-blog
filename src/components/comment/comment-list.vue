@@ -13,6 +13,7 @@
          <commentEditor 
          v-show="item.isClicked" 
          :replyId="item.id"  
+         @add-comment="addComment"
          @close-comment="closeComment"
          :articleId="articleId"
          />
@@ -30,7 +31,7 @@
         B.提交评论数据，同时要带上被评论的ID
         D.后端将评论信息发送给被评论者邮箱
 */
-import { getCommentList, addComment } from "@/api/comment";
+import { getCommentList } from "@/api/comment";
 import { formatTime } from "@/lib/tool";
 import commentEditor from "_c/comment/comment-editor.vue";
 export default {
@@ -59,11 +60,16 @@ export default {
           (this.currentReplyedComment = -1);
       }
     },
+    /* 关闭评论界面 */
     closeComment(){
       this.commentList = this.commentList.map(ele => {
         ele.isClicked=false;
         return ele;
       })
+    },
+    addComment(comment){
+      this.commentList.push(comment);
+      console.log('addComment',comment,this.commentList);
     }
   },
   mounted() {
